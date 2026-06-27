@@ -15,4 +15,69 @@
         .product-card { background: #fff; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 25px; overflow: hidden; border: 1px solid #eaeaea; transition: transform 0.2s; }
         .product-card:active { transform: scale(0.99); }
         .product-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 350px; }
-        .product-info {
+        
+        /* Đã bổ sung đầy đủ phần CSS bị thiếu bên dưới */
+        .product-info { padding: 15px; }
+        .product-title { font-size: 18px; font-weight: bold; color: #333; margin: 0 0 8px 0; }
+        .product-desc { font-size: 14px; color: #666; line-height: 1.5; margin: 0 0 12px 0; }
+        .btn-view { display: block; width: 100%; text-align: center; background-color: #8B4513; color: white; padding: 10px 0; border: none; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 15px; cursor: pointer; }
+        .btn-view:active { background-color: #5C2E0B; }
+    </style>
+</head>
+<body>
+
+    <div class="header">Đồ Gỗ Phú Quý</div>
+
+    <!-- Thanh điều hướng Tab -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'phong-khach')">Phòng Khách</button>
+        <button class="tab-btn" onclick="openTab(event, 'phong-thu')">Phòng Thờ / Khác</button>
+    </div>
+
+    <!-- Nội dung Tab 1 -->
+    <div id="phong-khach" class="container active">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600" alt="Bàn Ghế Gỗ" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Bộ Bàn Ghế Gỗ Gõ Đỏ Cao Cấp</h3>
+                <p class="product-desc">Chất liệu gỗ chọn lọc, vân gỗ tự nhiên sang trọng, hoàn thiện màu cánh gián pha cam ấm áp, tôn vinh đẳng cấp không gian phòng khách.</p>
+                <button class="btn-view" onclick="alert('Đang mở showroom ảo...')">Xem Thực Tế Ảo (3D/AR)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nội dung Tab 2 -->
+    <div id="phong-thu" class="container">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600" alt="Không gian nội thất" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Không Gian Nội Thất Tự Nhiên</h3>
+                <p class="product-desc">Thiết kế tinh xảo, đo đạc chuẩn phong thủy, mang lại sự an yên và thịnh vượng cho gia chủ.</p>
+                <button class="btn-view" onclick="alert('Đang mở showroom ảo...')">Xem Thực Tế Ảo (3D/AR)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript xử lý chuyển đổi Tab mượt mà -->
+    <script>
+        function openTab(evt, tabName) {
+            // Ẩn tất cả các container dữ liệu
+            var containers = document.getElementsByClassName("container");
+            for (var i = 0; i < containers.length; i++) {
+                containers[i].classList.remove("active");
+            }
+
+            // Bỏ active ở tất cả các nút tab
+            var tabBtns = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Hiển thị tab hiện tại và kích hoạt nút tương ứng
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
