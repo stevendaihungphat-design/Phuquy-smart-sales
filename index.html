@@ -3,109 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đồ Gỗ Phú Quý - Showroom Thực Tế Ảo AR</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <title>Đồ Gỗ Phú Quý - Showroom Thực Tế Ảo Tương Tác</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #fcf8f2; }
-        .header { background: linear-gradient(135deg, #8B4513, #5C2E0B); color: #fff; text-align: center; padding: 15px; font-size: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #8B4513; margin-bottom: 15px; }
-        .tab-btn { flex: 1; padding: 12px; border: none; background: none; font-size: 15px; font-weight: bold; color: #666; cursor: pointer; text-align: center; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #fcf8f2; -webkit-tap-highlight-color: transparent; }
+        .header { background: linear-gradient(135deg, #8B4513, #5C2E0B); color: #fff; text-align: center; padding: 18px 15px; font-size: 20px; font-weight: bold; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .tabs { display: flex; justify-content: center; background: #fff; border-bottom: 2px solid #8B4513; position: sticky; top: 0; z-index: 100; }
+        .tab-btn { flex: 1; padding: 14px; border: none; background: none; font-size: 15px; font-weight: bold; color: #666; cursor: pointer; text-align: center; transition: all 0.3s ease; }
         .tab-btn.active { color: #8B4513; border-bottom: 4px solid #8B4513; background-color: #fff5eb; }
-        .container { max-width: 600px; margin: 0 auto; padding: 10px; }
-        .product-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; overflow: hidden; border: 1px solid #eee; }
-        .product-img { width: 100%; height: auto; display: block; object-fit: cover; }
-        .product-info { padding: 15px; }
-        .product-title { font-size: 18px; font-weight: bold; color: #333; margin: 0 0 10px 0; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
-        .btn-ar { background: #ED8936; color: white; }
-        .btn-order { background: #8B4513; color: white; }
-        #ar-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; }
-        .btn-close-ar { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); color: white; border: none; padding: 12px 20px; border-radius: 20px; font-size: 16px; z-index: 10000; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-    <div class="header">🌳 ĐỒ GỖ PHÚ QUÝ - XEM THỬ AR 🌳</div>
-
-    <div class="tabs">
-        <button class="tab-btn active">Phòng Khách</button>
-        <button class="tab-btn" onclick="alert('Hệ thống đang cập nhật thêm sản phẩm!')">Phòng Thờ</button>
-        <button class="tab-btn" onclick="alert('Hệ thống đang cập nhật thêm sản phẩm!')">Phòng Ngủ</button>
-    </div>
-
-    <div class="container" id="product-list">
-        <!-- 10 Mẫu thử nghiệm thực tế của xưởng -->
-        <script>
-            const images = [
-                "https://i.ibb.co/9ktSfmsS/IMG-2380.jpg",
-                "https://i.ibb.co/jkY5DDMC/IMG-2379.jpg",
-                "https://i.ibb.co/gMbLSFj5/IMG-2370.jpg",
-                "https://i.ibb.co/SX2YL1gy/IMG-2369.jpg",
-                "https://i.ibb.co/Pz3gKKqs/IMG-2371.jpg",
-                "https://i.ibb.co/prQdSwDz/IMG-2368.jpg",
-                "https://i.ibb.co/Z6N1bdpM/IMG-2367.jpg",
-                "https://i.ibb.co/zTy3Trd6/IMG-2366.jpg",
-                "https://i.ibb.co/8DRtCSpW/IMG-2365.jpg",
-                "https://i.ibb.co/H8rj5Bn/IMG-2373.jpg"
-            ];
-
-            const container = document.getElementById('product-list');
-            images.forEach((url, index) => {
-                container.innerHTML += `
-                    <div class="product-card">
-                        <img class="product-img" src="${url}" alt="Sản phẩm ${index + 1}">
-                        <div class="product-info">
-                            <h3 class="product-title">Đồ Gỗ Cao Cấp Gõ Đỏ - Mẫu Phú Quý 0${index + 1}</h3>
-                            <div class="btn-group">
-                                <button class="btn btn-ar" onclick="openAR('${url}')">📱 Ươm Thử Tại Nhà</button>
-                                <button class="btn btn-order" onclick="alert('Yêu cầu tư vấn của bạn đã được gửi tới xưởng!')">🤝 Chọn Mẫu</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            function openAR(imgUrl) {
-                document.getElementById('ar-view').style.display = 'block';
-                const arImg = document.getElementById('ar-product-img');
-                arImg.setAttribute('src', imgUrl);
-                
-                // Thuật toán bộ lọc trộn màu kỹ thuật số (Chroma Key dải màu gỗ) để hỗ trợ tàng hình nền thô phía sau
-                arImg.addEventListener('material-texture-loaded', () => {
-                    const mesh = arImg.getObject3D('mesh');
-                    if (mesh && mesh.material) {
-                        mesh.material.transparent = true;
-                        mesh.material.alphaTest = 0.45; 
-                        mesh.material.needsUpdate = true;
-                    }
-                });
-            }
-
-            function closeAR() {
-                document.getElementById('ar-view').style.display = 'none';
-                location.reload();
-            }
-        </script>
-    </div>
-
-    <!-- Khung camera thực tế ảo tăng cường AR -->
-    <div id="ar-view">
-        <button class="btn-close-ar" onclick="closeAR()">❌ Thoát Xem</button>
-        <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-            <a-assets>
-                <img id="ar-product-img" crossorigin="anonymous" src="">
-            </a-assets>
-            
-            <!-- Sử dụng điểm đánh dấu Hiro Marker để neo sản phẩm cố định trên sàn nhà -->
-            <a-marker preset="hiro">
-                <a-image id="ar-target" src="#ar-product-img" position="0 0.5 0" rotation="-90 0 0" width="2.5" height="2.5"></a-image>
-            </a-marker>
-            
-            <a-entity camera></a-entity>
-        </a-scene>
-    </div>
-
-</body>
-</html>
+        .container { max-width: 600px; margin: 0 auto; padding: 15px; display: none; box-sizing: border-box; }
+        .container.active { display: block; }
+        .product-card { background: #fff; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 25px; overflow: hidden; border: 1px solid #eaeaea; transition: transform 0.2s; }
+        .product-card:active { transform: scale(0.99); }
+        .product-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 350px; }
+        .product-info {
