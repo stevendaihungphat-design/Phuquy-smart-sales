@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -8,11 +7,11 @@
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body { margin: 0; padding: 0; background-color: #f8f5f0; color: #333; }
-        header { background-color: #8B4513; color: #fff; padding: 20px 10px; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
-        header p { margin: 5px 0 0 0; font-size: 13px; color: #f0c9a0; }
+        header { background-color: #8B4513; color: #fff; padding: 25px 10px; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; color: #FFF8DC; }
+        header p { margin: 6px 0 0 0; font-size: 13px; color: #f0c9a0; font-style: italic; }
         
-        .menu-tabs { display: flex; overflow-x: auto; background-color: #fff; border-bottom: 2px solid #8B4513; sticky: top; }
+        .menu-tabs { display: flex; overflow-x: auto; background-color: #fff; border-bottom: 2px solid #8B4513; position: -webkit-sticky; position: sticky; top: 0; z-index: 100; }
         .tab-btn { flex: 1; padding: 15px 10px; border: none; background: none; font-weight: bold; color: #666; font-size: 14px; white-space: nowrap; cursor: pointer; text-align: center; }
         .tab-btn.active { color: #8B4513; border-bottom: 3px solid #8B4513; background-color: #fff8f0; }
         
@@ -20,32 +19,31 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        .product-card { background: white; border-radius: 8px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e6dfd5; }
-        .product-media { position: relative; width: 100%; padding-top: 56.25%; background: #eaeaea; }
-        .product-media iframe, .product-media img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover; }
+        .intro-box { background: #fff8f0; border-left: 4px solid #e67e22; padding: 12px; margin-bottom: 15px; border-radius: 4px; font-size: 14px; line-height: 1.4; }
         
-        .product-info { padding: 15px; }
-        .product-title { font-size: 16px; font-weight: bold; color: #8B4513; margin: 0 0 5px 0; }
-        .product-price { font-size: 15px; color: #d32f2f; font-weight: bold; margin-bottom: 10px; }
+        .product-card { background: white; border-radius: 8px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e6dfd5; padding: 15px; }
+        .product-title { font-size: 18px; font-weight: bold; color: #8B4513; margin: 0 0 8px 0; }
+        .product-desc { font-size: 14px; color: #666; margin-bottom: 15px; line-height: 1.4; }
         
-        .btn-group { display: flex; gap: 10px; }
-        .btn { flex: 1; padding: 10px; border-radius: 5px; font-weight: bold; font-size: 13px; text-align: center; cursor: pointer; border: none; text-decoration: none; }
-        .btn-ar { background-color: #e67e22; color: white; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-group { display: block; }
+        .btn { width: 100%; padding: 12px; border-radius: 5px; font-weight: bold; font-size: 14px; text-align: center; cursor: pointer; border: none; text-decoration: none; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; }
+        .btn-fb { background-color: #1877F2; color: white; }
+        .btn-ar { background-color: #e67e22; color: white; }
         .btn-order { background-color: #8B4513; color: white; }
         
         /* Giao diện AR xem thử tại nhà */
         #ar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; }
         #camera-view { width: 100%; height: 100%; object-fit: cover; }
-        #ar-product-img { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 70%; max-width: 300px; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
-        .ar-controls { position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 20px; padding: 0 20px; }
-        .btn-ar-action { padding: 12px 20px; border-radius: 25px; background: #fff; color: #333; font-weight: bold; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        #ar-product-img { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: 75%; max-width: 320px; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6)); }
+        .ar-controls { position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 15px; padding: 0 15px; }
+        .btn-ar-action { padding: 12px 18px; border-radius: 25px; background: #fff; color: #333; font-weight: bold; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 13px; }
         .btn-ar-close { background: #d32f2f; color: white; }
 
         /* Form đặt hàng cuối trang */
-        .order-section { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #8B4513; margin-top: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .order-section h3 { margin-top: 0; color: #8B4513; text-align: center; }
-        input, select { width: 100%; padding: 11px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
-        .btn-submit { width: 100%; padding: 12px; background: #8B4513; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 15px; margin-top: 10px; cursor: pointer; }
+        .order-section { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #8B4513; margin-top: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .order-section h3 { margin-top: 0; color: #8B4513; text-align: center; font-size: 18px; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
+        .btn-submit { width: 100%; padding: 14px; background: #8B4513; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 15px; margin-top: 10px; cursor: pointer; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -58,88 +56,71 @@
 <div class="menu-tabs">
     <button class="tab-btn active" onclick="openTab(event, 'phong-khach')">Phòng Khách</button>
     <button class="tab-btn" onclick="openTab(event, 'phong-tho')">Phòng Thờ</button>
-    <button class="tab-btn" onclick="openTab(event, 'phong-ngu')">Phòng Ngủ</button>
     <button class="tab-btn" onclick="openTab(event, 'phong-bep')">Phòng Bếp</button>
+    <button class="tab-btn" onclick="openTab(event, 'phong-ngu')">Phòng Ngủ</button>
 </div>
 
 <div class="container">
+    
+    <!-- DANH MỤC: PHÒNG KHÁCH -->
     <div id="phong-khach" class="tab-content active">
+        <div class="intro-box">✨ Chuyên các dòng bàn ghế gỗ Gõ Đỏ cao cấp màu cánh gián pha cam chuẩn chỉ, kết hợp các mẫu Sofa nệm hiện đại, mang lại vẻ đẹp sang trọng và ấm cúng cho ngôi nhà bạn.</div>
         <div class="product-card">
-            <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500" alt="Mẫu Ghế Đối Gõ Đỏ">
-            </div>
-            <div class="product-info">
-                <div class="product-title">Mẫu Ghế Đối Gỗ Gõ Đỏ</div>
-                <div class="product-price">Giá: Liên hệ báo giá tốt nhất</div>
-                <div class="btn-group">
-                    <button class="btn btn-ar" onclick="startAR('https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500')">📱 Ướm Thử Tại Nhà</button>
-                    <button class="btn btn-order" onclick="scrollToOrder('Mẫu Ghế Đối Gỗ Gõ Đỏ')">Đặt Mua</button>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500" alt="Mẫu Ghế Góc Hiện Đại">
-            </div>
-            <div class="product-info">
-                <div class="product-title">Mẫu Ghế Góc Phòng Khách Cao Cấp</div>
-                <div class="product-price">Giá: Liên hệ</div>
-                <div class="btn-group">
-                    <button class="btn btn-ar" onclick="startAR('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500')">📱 Ướm Thử Tại Nhà</button>
-                    <button class="btn btn-order" onclick="scrollToOrder('Mẫu Ghế Góc Phòng Khách')">Đặt Mua</button>
-                </div>
+            <div class="product-title">Nội Thất Bàn Ghế & Sofa Phòng Khách</div>
+            <div class="product-desc">Tổng hợp các mẫu ghế đối sang trọng, sofa góc gỗ tự nhiên tinh xảo và các dòng sofa nệm êm ái, hiện đại nhất.</div>
+            <div class="btn-group">
+                <a href="https://www.facebook.com/share/1CT1uUUATY/?" target="_blank" class="btn btn-fb">🖼️ Xem Mẫu Ghế Thực Tế (Album 1)</a>
+                <a href="https://www.facebook.com/share/1D6o3bgvTw/?" target="_blank" class="btn btn-fb">🖼️ Xem Mẫu Ghế Thực Tế (Album 2)</a>
+                <a href="https://www.facebook.com/share/1Pn7hDggKE/?" target="_blank" class="btn btn-fb">🛋️ Xem Bộ Sưu Tập Sofa Nệm Mới Nhất</a>
+                <button class="btn btn-ar" onclick="startAR('https://i.imgur.com/v8S78D1.png')">📱 Ướm Thử Ghế Vào Phòng Khách</button>
+                <button class="btn btn-order" onclick="scrollToOrder('Nội thất Phòng Khách')">✍️ Đăng Ký Tư Vấn / Báo Giá</button>
             </div>
         </div>
     </div>
 
+    <!-- DANH MỤC: PHÒNG THỜ -->
     <div id="phong-tho" class="tab-content">
+        <div class="intro-box">✨ Không gian tâm linh trang trọng với hệ vách thờ, tủ thờ, án thờ gỗ tự nhiên được đo đạc chuẩn kích thước lỗ ban phong thủy cho gia chủ.</div>
         <div class="product-card">
-            <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500" alt="Vách Thờ Tâm Linh">
-            </div>
-            <div class="product-info">
-                <div class="product-title">Hệ Vách Thờ & Án Gian Cao Cấp</div>
-                <div class="product-price">Giá: Thiết kế theo kích thước</div>
-                <div class="btn-group">
-                    <button class="btn btn-ar" onclick="startAR('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500')">📱 Ướm Thử Tại Nhà</button>
-                    <button class="btn btn-order" onclick="scrollToOrder('Hệ Vách Thờ Cao Cấp')">Đặt Mua</button>
-                </div>
+            <div class="product-title">Án Thờ - Tủ Thờ - Vách Thờ</div>
+            <div class="product-desc">Các sản phẩm thờ tự cao cấp, xử lý gỗ nghiêm ngặt chống mối mọt, cong vênh, hoàn thiện sơn PU nhẵn mịn.</div>
+            <div class="btn-group">
+                <a href="https://www.facebook.com/share/1BHMgXjiuz/?" target="_blank" class="btn btn-fb">🖼️ Xem Toàn Bộ Album Mẫu Tủ Thờ</a>
+                <button class="btn btn-ar" onclick="startAR('https://i.imgur.com/K3XgbyW.png')">📱 Ướm Thử Án Thờ Vào Không Gian</button>
+                <button class="btn btn-order" onclick="scrollToOrder('Nội thất Phòng Thờ')">✍️ Đăng Ký Tư Vấn / Báo Giá</button>
             </div>
         </div>
     </div>
 
-    <div id="phong-ngu" class="tab-content">
-        <div class="product-card">
-            <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" alt="Giường Ngủ Gỗ Gõ Đỏ">
-            </div>
-            <div class="product-info">
-                <div class="product-title">Giường Ngủ Gỗ Tự Nhiên Đục Mẫu Tây Âu</div>
-                <div class="product-price">Giá: Liên hệ</div>
-                <div class="btn-group">
-                    <button class="btn btn-ar" onclick="startAR('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500')">📱 Ướm Thử Tại Nhà</button>
-                    <button class="btn btn-order" onclick="scrollToOrder('Giường Ngủ Gỗ Đục Tây Âu')">Đặt Mua</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- DANH MỤC: PHÒNG BẾP -->
     <div id="phong-bep" class="tab-content">
+        <div class="intro-box">✨ Giữ lửa ấm cho gia đình bằng bộ bàn ghế ăn bánh tây, tủ kệ bếp tiện nghi, mang lại vẻ đẹp ấm cúng và đẳng cấp cho gian bếp.</div>
         <div class="product-card">
-            <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" alt="Bàn Ghế Ăn Gỗ Gõ Đỏ">
-            </div>
-            <div class="product-info">
-                <div class="product-title">Bộ Bàn Ghế Ăn Bánh Tây 8 Ghế</div>
-                <div class="product-price">Giá: Ưu đãi tốt nhất</div>
-                <div class="btn-group">
-                    <button class="btn btn-ar" onclick="startAR('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500')">📱 Ướm Thử Tại Nhà</button>
-                    <button class="btn btn-order" onclick="scrollToOrder('Bộ Bàn Ghế Ăn Bánh Tây')">Đặt Mua</button>
-                </div>
+            <div class="product-title">Bàn Ghế Ăn & Tủ Kệ Bếp</div>
+            <div class="product-desc">Bộ bàn ăn mặt liền, bộ bàn ăn bánh tây từ 6 đến 8 ghế đục chạm tinh tế, mang lại trải nghiệm tuyệt vời cho bữa cơm gia đình.</div>
+            <div class="btn-group">
+                <a href="https://www.facebook.com/share/1BENxVNBMM/?" target="_blank" class="btn btn-fb">🖼️ Xem Album Mẫu Bàn Ăn Thực Tế</a>
+                <button class="btn btn-ar" onclick="startAR('https://i.imgur.com/S64D12V.png')">📱 Ướm Thử Bàn Ăn Vào Nhà Bếp</button>
+                <button class="btn btn-order" onclick="scrollToOrder('Nội thất Phòng Bếp')">✍️ Đăng Ký Tư Vấn / Báo Giá</button>
             </div>
         </div>
     </div>
 
+    <!-- DANH MỤC: PHÒNG NGỦ -->
+    <div id="phong-ngu" class="tab-content">
+        <div class="intro-box">✨ Nơi nghỉ ngơi lý tưởng với các dòng giường ngủ đục mẫu Tây Âu sang trọng, tủ quần áo âm tường rộng rãi và bàn trang điểm gỗ tự nhiên thanh lịch.</div>
+        <div class="product-card">
+            <div class="product-title">Giường Ngủ, Tủ Áo & Bàn Trang Điểm</div>
+            <div class="product-desc">Giường ngủ gỗ Gõ Đỏ vững chãi, đục hoa văn sắc nét, kết hợp tủ áo đa năng tối ưu không gian phòng ngủ của bạn.</div>
+            <div class="btn-group">
+                <a href="https://www.facebook.com/share/18wx6vM9LX/?" target="_blank" class="btn btn-fb">🖼️ Xem Album Mẫu Giường Phòng Ngủ</a>
+                <button class="btn btn-ar" onclick="startAR('https://i.imgur.com/zW8r6pG.png')">📱 Ướm Thử Giường Vào Phòng Ngủ</button>
+                <button class="btn btn-order" onclick="scrollToOrder('Nội thất Phòng Ngủ')">✍️ Đăng Ký Tư Vấn / Báo Giá</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHU VỰC FORM ĐĂNG KÝ (Đồng bộ chuẩn Google Sheets) -->
     <div class="order-section" id="orderFormContainer">
         <h3>ĐĂNG KÝ TƯ VẤN & ĐẶT HÀNG</h3>
         <form id="purchaseForm">
@@ -147,15 +128,16 @@
             <input type="tel" id="customerPhone" name="customerPhone" placeholder="Số điện thoại liên hệ" required>
             <input type="text" id="customerAddress" name="customerAddress" placeholder="Địa chỉ bàn giao lắp đặt" required>
             
-            <label style="font-size: 13px; font-weight: bold; color: #8B4513; display: block; margin-top: 10px;">Sản phẩm bạn đang quan tâm:</label>
-            <input type="text" id="productInterest" name="productInterest" placeholder="Tên sản phẩm muốn mua" readonly style="background-color: #eee;">
+            <label style="font-size: 13px; font-weight: bold; color: #8B4513; display: block; margin-top: 10px;">Danh mục sản phẩm quan tâm:</label>
+            <input type="text" id="productInterest" name="productInterest" value="Nội thất Phòng Khách" readonly style="background-color: #eee; font-weight: bold; color: #555;">
             
-            <input type="text" id="customerNotes" name="customerNotes" placeholder="Yêu cầu riêng hoặc kích thước nhà bạn (nếu có)">
+            <input type="text" id="customerNotes" name="customerNotes" placeholder="Yêu cầu riêng hoặc kích thước phòng nhà bạn...">
             <button type="submit" class="btn-submit" id="submitBtn">GỬI YÊU CẦU CHO ĐỒ GỖ PHÚ QUÝ</button>
         </form>
     </div>
 </div>
 
+<!-- GIAO DIỆN CAMERA ƯỚM THỬ THỰC TẾ ẢO (AR) -->
 <div id="ar-overlay">
     <video id="camera-view" autoplay playsinline></video>
     <img id="ar-product-img" src="" alt="Sản phẩm AR">
@@ -167,7 +149,6 @@
 </div>
 
 <script>
-    // DÁN WEB_APP_URL CHÍNH XÁC MÁY TÍNH VỢ BẠN TẠO VÀO ĐÂY
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvJl9DvPh7XFQI2xrrdsJbc5qMPfahMrE8LcKXYkdOjlz--I73eMyh5yS15hz-6JOb/exec";
 
     function openTab(evt, tabName) {
@@ -178,6 +159,9 @@
         for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
+        
+        let prettyName = "Nội thất " + evt.currentTarget.innerText;
+        document.getElementById('productInterest').value = prettyName;
     }
 
     function scrollToOrder(productName) {
@@ -185,7 +169,6 @@
         document.getElementById('orderFormContainer').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Xử lý bật Camera và ướm thử sản phẩm tại chỗ (WebAR)
     let currentScale = 1.0;
     function startAR(imgSrc) {
         const overlay = document.getElementById('ar-overlay');
@@ -199,7 +182,7 @@
 
         navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
             .then(function(stream) { video.srcObject = stream; })
-            .catch(function(err) { alert("Không thể mở camera. Vui lòng cấp quyền camera cho trình duyệt để ướm thử nội thất!"); stopAR(); });
+            .catch(function(err) { alert("Không thể mở camera. Vui lòng cho phép quyền truy cập camera để trải nghiệm tính năng ướm thử vật dụng nội thất!"); stopAR(); });
     }
 
     function stopAR() {
@@ -214,11 +197,10 @@
         document.getElementById('ar-product-img').style.transform = `translate(-50%, -50%) scale(${currentScale})`;
     }
 
-    // Xử lý gửi Form lên Google Sheets và xử lý lỗi Undefined triệt để
     document.getElementById('purchaseForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "HỆ THỐNG ĐANG GỬI...";
+        btn.innerText = "ĐANG GỬI ĐẾN ĐỒ GỖ PHÚ QUÝ...";
         btn.disabled = true;
 
         const data = {
@@ -236,7 +218,7 @@
             body: JSON.stringify(data)
         })
         .then(() => {
-            alert('Đồ Gỗ Phú Quý đã nhận thông tin! Chúng tôi sẽ gọi lại cho bạn ngay lập tức.');
+            alert('Gửi thông tin thành công! Đồ Gỗ Phú Quý sẽ liên hệ tư vấn và gửi báo giá tốt nhất cho anh/chị ngay nhé.');
             document.getElementById('purchaseForm').reset();
         })
         .catch(err => { alert('Gửi thất bại, vui lòng kiểm tra lại kết nối mạng!'); console.error(err); })
